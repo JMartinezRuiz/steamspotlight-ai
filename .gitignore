@@ -1,0 +1,43 @@
+# Secrets / local configuration
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Runtime database and generated working data
+SR_BBDD.db
+*.sqlite
+*.sqlite3
+currentgames/
+analysis/
+
+# Generated media / local test artifacts
+video_final*.mp4
+*_test.mp4
+blur_test.mp4
+blurred_test.mp4
+test_output.mp3
+*.wav
+*.m4a
+frame_before.jpg
+frame_after.jpg
+game_analysis_animation.gif
+
+# Local music/audio assets. Commit only if licensing is clear.
+music/*.mp3
