@@ -2,7 +2,7 @@
 
 SteamSpotlight AI is a Python pipeline that finds recent Steam releases, ranks them with public signals, generates short video scripts with AI, creates narration, and renders a local vertical MP4 video.
 
-![SteamSpotlight AI technical flowchart](docs/assets/steamspotlight-ai-flowchart.svg)
+![SteamSpotlight AI workflow](docs/assets/steamspotlight-ai-workflow.png)
 
 ## What it does
 
