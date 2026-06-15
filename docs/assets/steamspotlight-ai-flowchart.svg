@@ -1,106 +1,211 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" role="img" aria-labelledby="title desc">
-  <title id="title">SteamSpotlight AI technical flowchart</title>
-  <desc id="desc">A minimal left-to-right technical flowchart of the SteamSpotlight AI pipeline.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="980" viewBox="0 0 1800 980" role="img" aria-labelledby="title desc">
+  <title id="title">SteamSpotlight AI workflow diagram</title>
+  <desc id="desc">A visual technical flowchart showing how SteamSpotlight AI collects Steam data, ranks games, creates AI scripts and narration, then renders a local MP4 video.</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08111f"/>
+      <stop offset="0.55" stop-color="#0b1424"/>
+      <stop offset="1" stop-color="#101827"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111c2e"/>
+      <stop offset="1" stop-color="#0c1626"/>
+    </linearGradient>
+    <linearGradient id="aiCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#122235"/>
+      <stop offset="1" stop-color="#0c182a"/>
+    </linearGradient>
+    <linearGradient id="outputCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f2a3e"/>
+      <stop offset="1" stop-color="#0b1d2c"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#55d7ff"/>
     </marker>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
     <style>
-      .bg { fill: #ffffff; }
-      .title { font: 700 32px Arial, Helvetica, sans-serif; fill: #0f172a; }
-      .subtitle { font: 400 16px Arial, Helvetica, sans-serif; fill: #475569; }
-      .phase { font: 700 12px Arial, Helvetica, sans-serif; letter-spacing: .08em; fill: #0369a1; }
-      .box { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; rx: 8; }
-      .box-ai { fill: #f8fafc; stroke: #0284c7; stroke-width: 2; rx: 8; }
-      .box-output { fill: #eff6ff; stroke: #0369a1; stroke-width: 2; rx: 8; }
-      .label { font: 700 17px Arial, Helvetica, sans-serif; fill: #111827; }
-      .module { font: 400 12px Consolas, "Courier New", monospace; fill: #475569; }
-      .note { font: 400 12px Arial, Helvetica, sans-serif; fill: #64748b; }
-      .num { font: 700 13px Arial, Helvetica, sans-serif; fill: #ffffff; }
-      .badge { fill: #0284c7; }
-      .line { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }
-      .footer { fill: #f8fafc; stroke: #e2e8f0; stroke-width: 1; rx: 8; }
+      .title { font: 800 48px Arial, Helvetica, sans-serif; fill: #f8fafc; }
+      .subtitle { font: 400 20px Arial, Helvetica, sans-serif; fill: #9fb3c8; }
+      .lane-label { font: 800 14px Arial, Helvetica, sans-serif; letter-spacing: .12em; fill: #67e8f9; }
+      .card { fill: url(#card); stroke: #24445e; stroke-width: 1.5; rx: 18; filter: url(#softShadow); }
+      .card-ai { fill: url(#aiCard); stroke: #22d3ee; stroke-width: 2; rx: 18; filter: url(#softShadow); }
+      .card-output { fill: url(#outputCard); stroke: #38bdf8; stroke-width: 2; rx: 18; filter: url(#softShadow); }
+      .db { fill: #0c1828; stroke: #6ee7b7; stroke-width: 2; rx: 18; filter: url(#softShadow); }
+      .label { font: 800 23px Arial, Helvetica, sans-serif; fill: #f8fafc; }
+      .module { font: 500 15px Consolas, "Courier New", monospace; fill: #8fd8ff; }
+      .note { font: 400 15px Arial, Helvetica, sans-serif; fill: #b6c5d6; }
+      .small { font: 400 13px Arial, Helvetica, sans-serif; fill: #8ca3b8; }
+      .chip { fill: #0f2638; stroke: #31526b; stroke-width: 1; rx: 9; }
+      .chipText { font: 700 12px Arial, Helvetica, sans-serif; fill: #c7f9ff; }
+      .arrow { stroke: #55d7ff; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .arrow-muted { stroke: #5b7087; stroke-width: 2.2; stroke-dasharray: 8 7; fill: none; marker-end: url(#arrow); }
+      .icon-line { stroke: #67e8f9; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .icon-fill { fill: #0e2a3d; stroke: #67e8f9; stroke-width: 2.5; }
+      .accent { fill: #22d3ee; }
+      .accent2 { fill: #fbbf24; }
+      .accent3 { fill: #34d399; }
+      .accent4 { fill: #f472b6; }
+      .panel { fill: rgba(255,255,255,0.03); stroke: #1e3348; stroke-width: 1; rx: 20; }
     </style>
   </defs>
 
-  <rect class="bg" width="1600" height="520"/>
+  <rect width="1800" height="980" fill="url(#bg)"/>
 
-  <text x="40" y="58" class="title">SteamSpotlight AI - Technical Flowchart</text>
-  <text x="40" y="86" class="subtitle">Recent Steam release data in, ranked narrated local MP4 out.</text>
+  <text x="80" y="86" class="title">SteamSpotlight AI workflow</text>
+  <text x="82" y="122" class="subtitle">From recent Steam release data to a ranked narrated local MP4 video.</text>
 
-  <text x="40" y="154" class="phase">INPUT</text>
-  <text x="214" y="154" class="phase">COLLECT</text>
-  <text x="388" y="154" class="phase">ENRICH</text>
-  <text x="562" y="154" class="phase">STORE</text>
-  <text x="736" y="154" class="phase">RANK</text>
-  <text x="910" y="154" class="phase">MEDIA</text>
-  <text x="1084" y="154" class="phase">SCRIPT</text>
-  <text x="1258" y="154" class="phase">VOICE</text>
-  <text x="1432" y="154" class="phase">RENDER</text>
+  <rect x="70" y="165" width="1660" height="260" class="panel"/>
+  <rect x="70" y="475" width="1660" height="310" class="panel"/>
+  <text x="92" y="204" class="lane-label">DATA PIPELINE</text>
+  <text x="92" y="514" class="lane-label">AI + VIDEO PIPELINE</text>
 
-  <rect class="box" x="40" y="180" width="150" height="132"/>
-  <circle class="badge" cx="64" cy="204" r="14"/><text x="60" y="209" class="num">1</text>
-  <text x="62" y="238" class="label">Run job</text>
-  <text x="62" y="266" class="module">main.py</text>
-  <text x="62" y="292" class="note">date range</text>
+  <!-- Data row cards -->
+  <rect x="110" y="235" width="230" height="150" class="card"/>
+  <text x="140" y="277" class="label">Job config</text>
+  <text x="140" y="307" class="module">main.py</text>
+  <text x="140" y="340" class="note">date range, top N, model</text>
+  <rect x="140" y="354" width="62" height="22" class="chip"/><text x="152" y="370" class="chipText">INPUT</text>
 
-  <rect class="box" x="214" y="180" width="150" height="132"/>
-  <circle class="badge" cx="238" cy="204" r="14"/><text x="234" y="209" class="num">2</text>
-  <text x="236" y="238" class="label">Fetch releases</text>
-  <text x="236" y="266" class="module">scrapper.py</text>
-  <text x="236" y="292" class="note">Steam list</text>
+  <g transform="translate(278 263)">
+    <rect x="0" y="0" width="38" height="52" rx="6" class="icon-fill"/>
+    <path d="M 9 13 H 29 M 9 25 H 29 M 9 37 H 22" class="icon-line"/>
+  </g>
 
-  <rect class="box" x="388" y="180" width="150" height="132"/>
-  <circle class="badge" cx="412" cy="204" r="14"/><text x="408" y="209" class="num">3</text>
-  <text x="410" y="238" class="label">Enrich data</text>
-  <text x="410" y="266" class="module">scrapper2.py</text>
-  <text x="410" y="292" class="note">media, tags, reviews</text>
+  <rect x="420" y="235" width="230" height="150" class="card"/>
+  <text x="450" y="277" class="label">Fetch releases</text>
+  <text x="450" y="307" class="module">scrapper.py</text>
+  <text x="450" y="340" class="note">new Steam releases list</text>
+  <rect x="450" y="354" width="76" height="22" class="chip"/><text x="462" y="370" class="chipText">SCRAPE</text>
 
-  <rect class="box" x="562" y="180" width="150" height="132"/>
-  <circle class="badge" cx="586" cy="204" r="14"/><text x="582" y="209" class="num">4</text>
-  <text x="584" y="238" class="label">Cache data</text>
-  <text x="584" y="266" class="module">SR_BBDD.db</text>
-  <text x="584" y="292" class="note">games + stats</text>
+  <g transform="translate(580 258)">
+    <rect x="0" y="0" width="46" height="60" rx="7" fill="#0e2a3d" stroke="#67e8f9" stroke-width="2.5"/>
+    <rect x="7" y="10" width="32" height="14" rx="3" fill="#22d3ee" opacity=".55"/>
+    <rect x="7" y="30" width="22" height="7" rx="2" fill="#9ae6ff" opacity=".75"/>
+    <rect x="7" y="43" width="28" height="7" rx="2" fill="#9ae6ff" opacity=".55"/>
+  </g>
 
-  <rect class="box" x="736" y="180" width="150" height="132"/>
-  <circle class="badge" cx="760" cy="204" r="14"/><text x="756" y="209" class="num">5</text>
-  <text x="758" y="238" class="label">Rank games</text>
-  <text x="758" y="266" class="module">analytics.py</text>
-  <text x="758" y="292" class="note">top N selection</text>
+  <rect x="730" y="235" width="230" height="150" class="card"/>
+  <text x="760" y="277" class="label">Enrich games</text>
+  <text x="760" y="307" class="module">scrapper2.py</text>
+  <text x="760" y="340" class="note">reviews, price, tags, media</text>
+  <rect x="760" y="354" width="72" height="22" class="chip"/><text x="772" y="370" class="chipText">DETAILS</text>
 
-  <rect class="box" x="910" y="180" width="150" height="132"/>
-  <circle class="badge" cx="934" cy="204" r="14"/><text x="930" y="209" class="num">6</text>
-  <text x="932" y="238" class="label">Prepare media</text>
-  <text x="932" y="266" class="module">folderpreparation.py</text>
-  <text x="932" y="292" class="note">local assets</text>
+  <g transform="translate(890 261)">
+    <path d="M 0 18 H 48 M 0 34 H 48 M 0 50 H 48" class="icon-line"/>
+    <circle cx="8" cy="18" r="5" class="accent"/>
+    <circle cx="28" cy="34" r="5" class="accent2"/>
+    <circle cx="42" cy="50" r="5" class="accent3"/>
+  </g>
 
-  <rect class="box-ai" x="1084" y="180" width="150" height="132"/>
-  <circle class="badge" cx="1108" cy="204" r="14"/><text x="1104" y="209" class="num">7</text>
-  <text x="1106" y="238" class="label">Create script</text>
-  <text x="1106" y="266" class="module">scriptcreator.py</text>
-  <text x="1106" y="292" class="note">OpenAI text</text>
+  <rect x="1040" y="235" width="230" height="150" class="db"/>
+  <text x="1070" y="277" class="label">Store cache</text>
+  <text x="1070" y="307" class="module">SR_BBDD.db</text>
+  <text x="1070" y="340" class="note">games, stats, inusegames</text>
+  <rect x="1070" y="354" width="68" height="22" class="chip"/><text x="1082" y="370" class="chipText">SQLite</text>
 
-  <rect class="box-ai" x="1258" y="180" width="150" height="132"/>
-  <circle class="badge" cx="1282" cy="204" r="14"/><text x="1278" y="209" class="num">8</text>
-  <text x="1280" y="238" class="label">Create voice</text>
-  <text x="1280" y="266" class="module">narratoreleven.py</text>
-  <text x="1280" y="292" class="note">or local TTS</text>
+  <g transform="translate(1198 259)">
+    <ellipse cx="34" cy="12" rx="34" ry="12" fill="#0d2a24" stroke="#6ee7b7" stroke-width="2.5"/>
+    <path d="M 0 12 V 50 C 0 57 15 64 34 64 C 53 64 68 57 68 50 V 12" fill="#0d2a24" stroke="#6ee7b7" stroke-width="2.5"/>
+    <path d="M 0 31 C 0 38 15 45 34 45 C 53 45 68 38 68 31" fill="none" stroke="#6ee7b7" stroke-width="2.5"/>
+  </g>
 
-  <rect class="box-output" x="1432" y="180" width="128" height="132"/>
-  <circle class="badge" cx="1456" cy="204" r="14"/><text x="1452" y="209" class="num">9</text>
-  <text x="1454" y="238" class="label">Render MP4</text>
-  <text x="1454" y="266" class="module">editor.py</text>
-  <text x="1454" y="292" class="note">video_final.mp4</text>
+  <rect x="1350" y="235" width="230" height="150" class="card"/>
+  <text x="1380" y="277" class="label">Rank games</text>
+  <text x="1380" y="307" class="module">analytics.py</text>
+  <text x="1380" y="340" class="note">score, sort, select top N</text>
+  <rect x="1380" y="354" width="74" height="22" class="chip"/><text x="1392" y="370" class="chipText">RANKED</text>
 
-  <path class="line" d="M 190 246 H 205"/>
-  <path class="line" d="M 364 246 H 379"/>
-  <path class="line" d="M 538 246 H 553"/>
-  <path class="line" d="M 712 246 H 727"/>
-  <path class="line" d="M 886 246 H 901"/>
-  <path class="line" d="M 1060 246 H 1075"/>
-  <path class="line" d="M 1234 246 H 1249"/>
-  <path class="line" d="M 1408 246 H 1423"/>
+  <g transform="translate(1515 256)">
+    <rect x="0" y="42" width="10" height="28" class="accent"/>
+    <rect x="18" y="24" width="10" height="46" class="accent2"/>
+    <rect x="36" y="8" width="10" height="62" class="accent3"/>
+    <path d="M -5 70 H 55" class="icon-line"/>
+    <path d="M 9 13 L 20 25 L 45 0" class="icon-line"/>
+  </g>
 
-  <rect class="footer" x="40" y="380" width="1520" height="58"/>
-  <text x="64" y="414" class="note">Required environment: OPENAI_API_KEY, TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID</text>
+  <!-- Data row arrows -->
+  <path d="M 340 310 H 412" class="arrow"/>
+  <path d="M 650 310 H 722" class="arrow"/>
+  <path d="M 960 310 H 1032" class="arrow"/>
+  <path d="M 1270 310 H 1342" class="arrow"/>
+
+  <!-- AI/render row cards -->
+  <rect x="180" y="555" width="250" height="165" class="card"/>
+  <text x="212" y="599" class="label">Prepare media</text>
+  <text x="212" y="629" class="module">folderpreparation.py</text>
+  <text x="212" y="662" class="note">downloads selected assets</text>
+  <text x="212" y="690" class="small">currentgames/&lt;game&gt;/media*</text>
+
+  <g transform="translate(345 588)">
+    <rect x="0" y="0" width="72" height="48" rx="8" fill="#0e2a3d" stroke="#67e8f9" stroke-width="2.5"/>
+    <path d="M 20 14 L 50 24 L 20 34 Z" fill="#22d3ee"/>
+    <rect x="9" y="60" width="54" height="8" rx="4" class="accent3"/>
+  </g>
+
+  <rect x="530" y="555" width="250" height="165" class="card-ai"/>
+  <text x="562" y="599" class="label">Create script</text>
+  <text x="562" y="629" class="module">scriptcreator.py</text>
+  <text x="562" y="662" class="note">intro, game segments, outro</text>
+  <text x="562" y="690" class="small">OpenAI chat completion</text>
+
+  <g transform="translate(696 585)">
+    <path d="M 8 0 H 52 L 70 18 V 74 H 8 Z" fill="#0e2a3d" stroke="#67e8f9" stroke-width="2.5"/>
+    <path d="M 52 0 V 18 H 70" class="icon-line"/>
+    <path d="M 20 30 H 56 M 20 44 H 58 M 20 58 H 45" class="icon-line"/>
+    <circle cx="67" cy="4" r="4" class="accent4"/>
+  </g>
+
+  <rect x="880" y="555" width="250" height="165" class="card-ai"/>
+  <text x="912" y="599" class="label">Create voice</text>
+  <text x="912" y="629" class="module">narratoreleven.py</text>
+  <text x="912" y="662" class="note">AI narration or local fallback</text>
+  <text x="912" y="690" class="small">description.mp3 files</text>
+
+  <g transform="translate(1046 580)">
+    <rect x="23" y="5" width="36" height="62" rx="18" fill="#0e2a3d" stroke="#67e8f9" stroke-width="2.5"/>
+    <path d="M 12 38 C 12 68 70 68 70 38 M 41 68 V 86 M 24 86 H 58" class="icon-line"/>
+    <path d="M -8 92 C 4 76 14 108 26 92 C 38 76 48 108 60 92 C 72 76 82 108 94 92" fill="none" stroke="#f472b6" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <rect x="1230" y="555" width="250" height="165" class="card"/>
+  <text x="1262" y="599" class="label">Compose video</text>
+  <text x="1262" y="629" class="module">editor.py</text>
+  <text x="1262" y="662" class="note">timeline, captions, overlays</text>
+  <text x="1262" y="690" class="small">vertical local render</text>
+
+  <g transform="translate(1394 587)">
+    <rect x="0" y="0" width="74" height="54" rx="7" fill="#0e2a3d" stroke="#67e8f9" stroke-width="2.5"/>
+    <rect x="8" y="10" width="18" height="14" rx="2" class="accent"/>
+    <rect x="30" y="10" width="18" height="14" rx="2" class="accent2"/>
+    <rect x="52" y="10" width="14" height="14" rx="2" class="accent4"/>
+    <path d="M 8 36 H 66 M 8 46 H 48" class="icon-line"/>
+  </g>
+
+  <rect x="1580" y="555" width="140" height="165" class="card-output"/>
+  <text x="1608" y="599" class="label">Local MP4</text>
+  <text x="1608" y="629" class="module">video_final.mp4</text>
+  <text x="1608" y="662" class="note">file output</text>
+
+  <g transform="translate(1642 675)">
+    <path d="M 0 0 H 44 L 58 14 V 70 H 0 Z" fill="#0e2a3d" stroke="#67e8f9" stroke-width="2.5"/>
+    <path d="M 44 0 V 14 H 58" class="icon-line"/>
+    <text x="8" y="46" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" fill="#f8fafc">MP4</text>
+  </g>
+
+  <!-- AI/render arrows -->
+  <path d="M 430 638 H 522" class="arrow"/>
+  <path d="M 780 638 H 872" class="arrow"/>
+  <path d="M 1130 638 H 1222" class="arrow"/>
+  <path d="M 1480 638 H 1572" class="arrow"/>
+
+  <!-- Cross-row dependencies -->
+  <path d="M 1465 385 V 455 H 655 V 547" class="arrow"/>
+  <path d="M 1465 385 V 455 H 305 V 547" class="arrow-muted"/>
+  <path d="M 1155 385 V 455 H 1005 V 547" class="arrow-muted"/>
+
+  <rect x="80" y="835" width="1640" height="68" rx="18" fill="#0b1726" stroke="#21364d" stroke-width="1.5"/>
+  <text x="112" y="866" class="lane-label">CONFIGURATION</text>
+  <text x="112" y="890" class="small">Required environment variables: OPENAI_API_KEY, TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID</text>
 </svg>
