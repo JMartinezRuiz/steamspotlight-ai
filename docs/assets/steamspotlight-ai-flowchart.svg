@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" role="img" aria-labelledby="title desc">
+  <title id="title">SteamSpotlight AI technical flowchart</title>
+  <desc id="desc">A minimal left-to-right technical flowchart of the SteamSpotlight AI pipeline.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg { fill: #ffffff; }
+      .title { font: 700 32px Arial, Helvetica, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 16px Arial, Helvetica, sans-serif; fill: #475569; }
+      .phase { font: 700 12px Arial, Helvetica, sans-serif; letter-spacing: .08em; fill: #0369a1; }
+      .box { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; rx: 8; }
+      .box-ai { fill: #f8fafc; stroke: #0284c7; stroke-width: 2; rx: 8; }
+      .box-output { fill: #eff6ff; stroke: #0369a1; stroke-width: 2; rx: 8; }
+      .label { font: 700 17px Arial, Helvetica, sans-serif; fill: #111827; }
+      .module { font: 400 12px Consolas, "Courier New", monospace; fill: #475569; }
+      .note { font: 400 12px Arial, Helvetica, sans-serif; fill: #64748b; }
+      .num { font: 700 13px Arial, Helvetica, sans-serif; fill: #ffffff; }
+      .badge { fill: #0284c7; }
+      .line { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .footer { fill: #f8fafc; stroke: #e2e8f0; stroke-width: 1; rx: 8; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="520"/>
+
+  <text x="40" y="58" class="title">SteamSpotlight AI - Technical Flowchart</text>
+  <text x="40" y="86" class="subtitle">Recent Steam release data in, ranked narrated local MP4 out.</text>
+
+  <text x="40" y="154" class="phase">INPUT</text>
+  <text x="214" y="154" class="phase">COLLECT</text>
+  <text x="388" y="154" class="phase">ENRICH</text>
+  <text x="562" y="154" class="phase">STORE</text>
+  <text x="736" y="154" class="phase">RANK</text>
+  <text x="910" y="154" class="phase">MEDIA</text>
+  <text x="1084" y="154" class="phase">SCRIPT</text>
+  <text x="1258" y="154" class="phase">VOICE</text>
+  <text x="1432" y="154" class="phase">RENDER</text>
+
+  <rect class="box" x="40" y="180" width="150" height="132"/>
+  <circle class="badge" cx="64" cy="204" r="14"/><text x="60" y="209" class="num">1</text>
+  <text x="62" y="238" class="label">Run job</text>
+  <text x="62" y="266" class="module">main.py</text>
+  <text x="62" y="292" class="note">date range</text>
+
+  <rect class="box" x="214" y="180" width="150" height="132"/>
+  <circle class="badge" cx="238" cy="204" r="14"/><text x="234" y="209" class="num">2</text>
+  <text x="236" y="238" class="label">Fetch releases</text>
+  <text x="236" y="266" class="module">scrapper.py</text>
+  <text x="236" y="292" class="note">Steam list</text>
+
+  <rect class="box" x="388" y="180" width="150" height="132"/>
+  <circle class="badge" cx="412" cy="204" r="14"/><text x="408" y="209" class="num">3</text>
+  <text x="410" y="238" class="label">Enrich data</text>
+  <text x="410" y="266" class="module">scrapper2.py</text>
+  <text x="410" y="292" class="note">media, tags, reviews</text>
+
+  <rect class="box" x="562" y="180" width="150" height="132"/>
+  <circle class="badge" cx="586" cy="204" r="14"/><text x="582" y="209" class="num">4</text>
+  <text x="584" y="238" class="label">Cache data</text>
+  <text x="584" y="266" class="module">SR_BBDD.db</text>
+  <text x="584" y="292" class="note">games + stats</text>
+
+  <rect class="box" x="736" y="180" width="150" height="132"/>
+  <circle class="badge" cx="760" cy="204" r="14"/><text x="756" y="209" class="num">5</text>
+  <text x="758" y="238" class="label">Rank games</text>
+  <text x="758" y="266" class="module">analytics.py</text>
+  <text x="758" y="292" class="note">top N selection</text>
+
+  <rect class="box" x="910" y="180" width="150" height="132"/>
+  <circle class="badge" cx="934" cy="204" r="14"/><text x="930" y="209" class="num">6</text>
+  <text x="932" y="238" class="label">Prepare media</text>
+  <text x="932" y="266" class="module">folderpreparation.py</text>
+  <text x="932" y="292" class="note">local assets</text>
+
+  <rect class="box-ai" x="1084" y="180" width="150" height="132"/>
+  <circle class="badge" cx="1108" cy="204" r="14"/><text x="1104" y="209" class="num">7</text>
+  <text x="1106" y="238" class="label">Create script</text>
+  <text x="1106" y="266" class="module">scriptcreator.py</text>
+  <text x="1106" y="292" class="note">OpenAI text</text>
+
+  <rect class="box-ai" x="1258" y="180" width="150" height="132"/>
+  <circle class="badge" cx="1282" cy="204" r="14"/><text x="1278" y="209" class="num">8</text>
+  <text x="1280" y="238" class="label">Create voice</text>
+  <text x="1280" y="266" class="module">narratoreleven.py</text>
+  <text x="1280" y="292" class="note">or local TTS</text>
+
+  <rect class="box-output" x="1432" y="180" width="128" height="132"/>
+  <circle class="badge" cx="1456" cy="204" r="14"/><text x="1452" y="209" class="num">9</text>
+  <text x="1454" y="238" class="label">Render MP4</text>
+  <text x="1454" y="266" class="module">editor.py</text>
+  <text x="1454" y="292" class="note">video_final.mp4</text>
+
+  <path class="line" d="M 190 246 H 205"/>
+  <path class="line" d="M 364 246 H 379"/>
+  <path class="line" d="M 538 246 H 553"/>
+  <path class="line" d="M 712 246 H 727"/>
+  <path class="line" d="M 886 246 H 901"/>
+  <path class="line" d="M 1060 246 H 1075"/>
+  <path class="line" d="M 1234 246 H 1249"/>
+  <path class="line" d="M 1408 246 H 1423"/>
+
+  <rect class="footer" x="40" y="380" width="1520" height="58"/>
+  <text x="64" y="414" class="note">Required environment: OPENAI_API_KEY, TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID</text>
+</svg>
